@@ -2,17 +2,15 @@ import { Module } from '@nestjs/common';
 
 import ApplicationModule from '../core/application/application.module';
 import UserApi from './api/UserApi';
-import { MongoConnection } from './adapters/external/MongoConnection';
-import { IConnection } from './adapters/external/IConnection';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './adapters/gateway/entity/UserEntity';
+import { UserController } from './controller/UserController';
+import UserGateway from './adapters/gateway/UserGateway';
+import UserUseCase from 'src/core/application/usecase/UserUseCase';
 
 @Module({
-  imports: [ApplicationModule],
+  imports: [ApplicationModule, TypeOrmModule.forFeature([UserEntity]), UserUseCase],
   controllers: [UserApi],
-  providers: [
-    {
-      provide: IConnection,
-      useClass: MongoConnection,
-    },
-  ]
+  providers: [UserGateway]
 })
-export default class InfrastructureModule {}
+export default class InfrastructureModule { }

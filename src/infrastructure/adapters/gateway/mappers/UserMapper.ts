@@ -6,7 +6,7 @@ import { UserEntity } from '../entity/UserEntity';
 export default class UserMapper {
   static async toDomain(user: UserEntity): Promise<User> {
     return {
-      id: user._id || v4(),
+      id: user.id || v4(),
       name: user.name,
       email: user.email,
       phone: user.phone,
@@ -18,7 +18,7 @@ export default class UserMapper {
 
   static toEntity(user: User): UserEntity {
     return {
-      _id: user.id || v4(),
+      id: user.id || v4(),
       name: user.name,
       email: user.email,
       cpf: user.cpf.value,

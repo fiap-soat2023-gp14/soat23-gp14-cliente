@@ -4,21 +4,20 @@ import UserFilter from 'src/core/domain/entities/UserFilter';
 import { UserEntity } from './entity/UserEntity';
 import UserMapper from './mappers/UserMapper';
 import { IConnection } from '../external/IConnection';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
+@Injectable()
 export default class UserGateway implements IUserGateway {
-  private COLLECTION_NAME = 'Users';
-  private dbConnection: IConnection;
-  constructor(dataBase: IConnection) {
-    this.dbConnection = dataBase;
-  }
+  constructor(@InjectRepository(UserEntity)
+  private readonly userRepository: Repository<UserEntity>) { }
+
 
   public async create(user: User): Promise<User> {
     const userEntity = UserMapper.toEntity(user);
     try {
-      await this.dbConnection
-        .getCollection(this.COLLECTION_NAME)
-        .insertOne(userEntity);
-      console.log('User created successfully.');
+      await this.userRepository.save(userEntity);
       return UserMapper.toDomain(userEntity);
     } catch (error) {
       console.error('Error creating user:', error);
@@ -28,39 +27,36 @@ export default class UserGateway implements IUserGateway {
 
   public async getAll(params: UserFilter): Promise<User[]> {
     const filter = params ? params : {};
-    const users: UserEntity[] = await this.dbConnection
-      .getCollection(this.COLLECTION_NAME)
-      .find(filter)
-      .toArray();
+    const users: UserEntity[] = await this.userRepository.find(filter);
 
     return await UserMapper.toDomainList(users);
   }
 
-  public async getById(id: string): Promise<User> {
-    const userResponse = await this.dbConnection
-      .getCollection(this.COLLECTION_NAME)
-      .findOne({ _id: id });
+  // public async getById(id: string): Promise<User> {
+  //   const userResponse = await this.dbConnection
+  //     .getCollection(this.COLLECTION_NAME)
+  //     .findOne({ _id: id });
 
-    if (!userResponse) return Promise.resolve(null);
+  //   if (!userResponse) return Promise.resolve(null);
 
-    return await UserMapper.toDomain(userResponse);
-  }
+  //   return await UserMapper.toDomain(userResponse);
+  // }
 
-  public async update(id: string, user: User): Promise<User> {
-    try {
-      const userEntity = UserMapper.toEntity(user);
-      delete userEntity._id;
-      const updateUser = {
-        $set: { ...userEntity },
-      };
-      await this.dbConnection
-        .getCollection(this.COLLECTION_NAME)
-        .updateOne({ _id: id }, updateUser);
+  // public async update(id: string, user: User): Promise<User> {
+  //   try {
+  //     const userEntity = UserMapper.toEntity(user);
+  //     delete userEntity.id;
+  //     const updateUser = {
+  //       $set: { ...userEntity },
+  //     };
+  //     await this.dbConnection
+  //       .getCollection(this.COLLECTION_NAME)
+  //       .updateOne({ _id: id }, updateUser);
 
-      return UserMapper.toDomain(userEntity);
-    } catch (error) {
-      console.error('Error updating user:', error);
-      throw error;
-    }
-  }
+  //     return UserMapper.toDomain(userEntity);
+  //   } catch (error) {
+  //     console.error('Error updating user:', error);
+  //     throw error;
+  //   }
+  // }
 }
