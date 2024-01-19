@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import DomainModule from '../domain/domain.module';
 import UserUseCase from './usecase/UserUseCase';
-import { IUserGateway } from './repositories/IUserGateway';
+import UseCaseModule from './usecase/usecase.module';
 
 @Module({
-  imports: [DomainModule, UserUseCase],
+  imports: [DomainModule, UseCaseModule],
   controllers: [],
   providers: [],
-  exports: [UserUseCase],
+  exports: [],
 })
 export default class ApplicationModule { }

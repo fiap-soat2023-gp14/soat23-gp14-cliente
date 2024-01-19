@@ -23,6 +23,7 @@ export default class UserUseCase {
   }
 
   public async getAllUsers(params: UserFilterDTO) {
+    console.log('params', params);
     return await this.userGateway.getAll(params);
   }
 
