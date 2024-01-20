@@ -7,4 +7,4 @@ import DomainModule from '../domain/domain.module';
   providers: [],
   exports: [],
 })
-export default class ApplicationModule {}
+export default class ApplicationModule { }

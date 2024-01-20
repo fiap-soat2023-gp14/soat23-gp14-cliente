@@ -13,30 +13,27 @@ import {
 import { UserCreationDTO } from 'src/core/application/dto/UserCreationDTO';
 import UserFilter from 'src/core/domain/entities/UserFilter';
 import { UserController } from '../controller/UserController';
-import { IConnection } from '../adapters/external/IConnection';
 
 @Controller('users')
 export default class UserApi {
   constructor(
-    @Inject(IConnection) private readonly dbConnection: IConnection,
-  ) {}
+    @Inject(UserController) private useControler: UserController) { }
   @Post()
   async createUser(@Res() response, @Body() userCreationDto: UserCreationDTO) {
-    const user = await UserController.createUser(
-      userCreationDto,
-      this.dbConnection,
+    const user = await this.useControler.createUser(
+      userCreationDto
     );
     return response.status(HttpStatus.OK).json(user);
   }
 
   @Get()
   getAllUsers(@Query() params: UserFilter) {
-    return UserController.getAllUsers(params, this.dbConnection);
+    return this.useControler.getAllUsers(params);
   }
 
   @Get('/:id')
   getUserById(@Param('id') id: string) {
-    return UserController.getUserById(id, this.dbConnection);
+    return this.useControler.getUserById(id);
   }
 
   @Put('/:id')
@@ -45,7 +42,7 @@ export default class UserApi {
     @Param('id') id: string,
     @Body() userDto: UserCreationDTO,
   ) {
-    await UserController.updateUser(id, userDto, this.dbConnection);
+    await this.useControler.updateUser(id, userDto);
     return response.status(HttpStatus.OK).json();
   }
 }
