@@ -31,18 +31,18 @@ export default class UserApi {
     return this.useControler.getAllUsers(params);
   }
 
-  // @Get('/:id')
-  // getUserById(@Param('id') id: string) {
-  //   return UserController.getUserById(id);
-  // }
+  @Get('/:id')
+  getUserById(@Param('id') id: string) {
+    return this.useControler.getUserById(id);
+  }
 
-  // @Put('/:id')
-  // async updateUser(
-  //   @Res() response,
-  //   @Param('id') id: string,
-  //   @Body() userDto: UserCreationDTO,
-  // ) {
-  //   await UserController.updateUser(id, userDto, this.dbConnection);
-  //   return response.status(HttpStatus.OK).json();
-  // }
+  @Put('/:id')
+  async updateUser(
+    @Res() response,
+    @Param('id') id: string,
+    @Body() userDto: UserCreationDTO,
+  ) {
+    await this.useControler.updateUser(id, userDto);
+    return response.status(HttpStatus.OK).json();
+  }
 }

@@ -3,7 +3,6 @@ import User from 'src/core/domain/entities/User';
 import UserFilter from 'src/core/domain/entities/UserFilter';
 import { UserEntity } from './entity/UserEntity';
 import UserMapper from './mappers/UserMapper';
-import { IConnection } from '../external/IConnection';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -27,36 +26,28 @@ export default class UserGateway implements IUserGateway {
 
   public async getAll(params: UserFilter): Promise<User[]> {
     const filter = params ? params : {};
-    const users: UserEntity[] = await this.userRepository.find(filter);
+    const users: UserEntity[] = await this.userRepository.find({ where: filter });
 
     return await UserMapper.toDomainList(users);
   }
 
-  // public async getById(id: string): Promise<User> {
-  //   const userResponse = await this.dbConnection
-  //     .getCollection(this.COLLECTION_NAME)
-  //     .findOne({ _id: id });
+  public async getById(id: string): Promise<User> {
+    const userResponse = await this.userRepository.findOne({ where: { id } });
 
-  //   if (!userResponse) return Promise.resolve(null);
+    if (!userResponse) return Promise.resolve(null);
 
-  //   return await UserMapper.toDomain(userResponse);
-  // }
+    return await UserMapper.toDomain(userResponse);
+  }
 
-  // public async update(id: string, user: User): Promise<User> {
-  //   try {
-  //     const userEntity = UserMapper.toEntity(user);
-  //     delete userEntity.id;
-  //     const updateUser = {
-  //       $set: { ...userEntity },
-  //     };
-  //     await this.dbConnection
-  //       .getCollection(this.COLLECTION_NAME)
-  //       .updateOne({ _id: id }, updateUser);
+  public async update(id: string, user: User): Promise<User> {
+    try {
+      const userEntity = UserMapper.toEntity(user);
+      await this.userRepository.update(id, userEntity);
 
-  //     return UserMapper.toDomain(userEntity);
-  //   } catch (error) {
-  //     console.error('Error updating user:', error);
-  //     throw error;
-  //   }
-  // }
+      return UserMapper.toDomain(userEntity);
+    } catch (error) {
+      console.error('Error updating user:', error);
+      throw error;
+    }
+  }
 }

@@ -1,11 +1,8 @@
-import { IConnection } from '../adapters/external/IConnection';
-import UserGateway from '../adapters/gateway/UserGateway';
 import UserUseCase from '../../core/application/usecase/UserUseCase';
 import { UserAdapter } from '../../core/application/adapter/UserAdapter';
 import { UserFilterDTO } from '../../core/application/dto/UserFilterDTO';
 import { UserCreationDTO } from '../../core/application/dto/UserCreationDTO';
-import { Inject, Injectable } from '@nestjs/common';
-import User from 'src/core/domain/entities/User';
+import { Inject } from '@nestjs/common';
 
 
 export class UserController {
@@ -26,24 +23,21 @@ export class UserController {
     return adapted;
   }
 
-  // static async getUserById(id: string, dbconnection: IConnection) {
-  //   const userGateway = new UserGateway(dbconnection);
-  //   const user = await UserUseCase.getUserById(id, userGateway);
+  public async getUserById(id: string) {
+    const user = await this.userCase.getUserById(id);
 
-  //   const adapted = UserAdapter.toResponse(user);
-  //   return adapted;
-  // }
+    const adapted = UserAdapter.toResponse(user);
+    return adapted;
+  }
 
-  // static async updateUser(
-  //   id: string,
-  //   body: UserCreationDTO,
-  //   dbconnection: IConnection,
-  // ) {
-  //   const userGateway = new UserGateway(dbconnection);
-  //   const userBody = await UserAdapter.toDomain(body);
-  //   const user = await UserUseCase.updateUser(id, userBody, userGateway);
+  public async updateUser(
+    id: string,
+    body: UserCreationDTO,
+  ) {
+    const userBody = await UserAdapter.toDomain(body);
+    const user = await this.userCase.updateUser(id, userBody);
 
-  //   const adapted = UserAdapter.toResponse(user);
-  //   return adapted;
-  // }
+    const adapted = UserAdapter.toResponse(user);
+    return adapted;
+  }
 }
