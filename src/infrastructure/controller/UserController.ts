@@ -6,27 +6,30 @@ import { Inject } from '@nestjs/common';
 
 
 export class UserController {
-  constructor(@Inject(UserUseCase) private userCase: UserUseCase) { }
+  constructor(
+    @Inject(UserUseCase) private userCase: UserUseCase,
+    @Inject(UserAdapter) private userAdapter: UserAdapter
+  ) { }
 
   public async getAllUsers(params: UserFilterDTO) {
     const allUsers = await this.userCase.getAllUsers(params);
 
-    const adapted = UserAdapter.toResponseList(allUsers);
+    const adapted = this.userAdapter.toResponseList(allUsers);
     return adapted;
   }
 
   public async createUser(body: UserCreationDTO) {
-    const userBody = await UserAdapter.toDomain(body);
+    const userBody = await this.userAdapter.toDomain(body);
     const user = await this.userCase.createUser(userBody);
 
-    const adapted = UserAdapter.toResponse(user);
+    const adapted = this.userAdapter.toResponse(user);
     return adapted;
   }
 
   public async getUserById(id: string) {
     const user = await this.userCase.getUserById(id);
 
-    const adapted = UserAdapter.toResponse(user);
+    const adapted = this.userAdapter.toResponse(user);
     return adapted;
   }
 
@@ -34,10 +37,10 @@ export class UserController {
     id: string,
     body: UserCreationDTO,
   ) {
-    const userBody = await UserAdapter.toDomain(body);
+    const userBody = await this.userAdapter.toDomain(body);
     const user = await this.userCase.updateUser(id, userBody);
 
-    const adapted = UserAdapter.toResponse(user);
+    const adapted = this.userAdapter.toResponse(user);
     return adapted;
   }
 }
