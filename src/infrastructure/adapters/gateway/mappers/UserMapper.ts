@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import { UserEntity } from '../entity/UserEntity';
 
 export default class UserMapper {
-  static async toDomain(user: UserEntity): Promise<User> {
+  public async toDomain(user: UserEntity): Promise<User> {
     return {
       id: user.id || v4(),
       name: user.name,
@@ -16,7 +16,7 @@ export default class UserMapper {
     };
   }
 
-  static toEntity(user: User): UserEntity {
+  public toEntity(user: User): UserEntity {
     return {
       id: user.id || v4(),
       name: user.name,
@@ -28,7 +28,7 @@ export default class UserMapper {
     };
   }
 
-  static async toDomainList(users: UserEntity[]): Promise<User[]> {
+  public async toDomainList(users: UserEntity[]): Promise<User[]> {
     return Promise.all(users.map((user) => this.toDomain(user)));
   }
 }

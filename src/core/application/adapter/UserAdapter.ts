@@ -5,7 +5,7 @@ import { UserCreationDTO } from '../dto/UserCreationDTO';
 import { UserUpdateDTO } from '../dto/UserUpdateDTO';
 
 export class UserAdapter {
-  static async toDomain(user: UserCreationDTO): Promise<User> {
+  public async toDomain(user: UserCreationDTO): Promise<User> {
     return {
       id: user.id,
       name: user.name,
@@ -17,7 +17,7 @@ export class UserAdapter {
     };
   }
 
-  static toResponse(user: User): UserResponseDTO {
+  public toResponse(user: User): UserResponseDTO {
     return {
       id: user.id,
       name: user.name,
@@ -27,11 +27,11 @@ export class UserAdapter {
     };
   }
 
-  static toResponseList(users: User[]): UserResponseDTO[] {
+  public toResponseList(users: User[]): UserResponseDTO[] {
     return users.map((user) => this.toResponse(user));
   }
 
-  static toUpdateDTO(user: UserUpdateDTO): UserUpdateDTO {
+  public toUpdateDTO(user: UserUpdateDTO): UserUpdateDTO {
     return {
       name: user.name,
       phone: user.phone,

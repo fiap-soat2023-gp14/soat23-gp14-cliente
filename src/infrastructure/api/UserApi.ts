@@ -17,7 +17,9 @@ import { UserController } from '../controller/UserController';
 @Controller('users')
 export default class UserApi {
   constructor(
-    @Inject(UserController) private useControler: UserController) { }
+    @Inject(UserController) private useControler: UserController
+  ) { }
+
   @Post()
   async createUser(@Res() response, @Body() userCreationDto: UserCreationDTO) {
     const user = await this.useControler.createUser(
