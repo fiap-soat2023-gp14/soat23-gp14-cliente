@@ -15,8 +15,9 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/core/application/dto/**',
     '!src/**/*.module.ts',
-    '!src/infrastucture/migrations/**',
-    '!src/core/domain/**',
+    '!src/infrastructure/migration/**',
+    '!src/core/domain/entities/**',
+    '!src/main.ts',
   ],
   coverageThreshold: {
     global: {
