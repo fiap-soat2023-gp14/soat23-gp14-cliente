@@ -4,13 +4,14 @@ module.exports = {
   testEnvironment: 'node',
   moduleDirectories: ['node_modules', 'src'],
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
+  testRegex: ".*\\/.*spec\\.ts$",
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
 
   coverageDirectory: 'coverage',
   coverageReporters: ['cobertura', 'html', 'lcov', 'text', 'clover', 'text-summary'],
+  collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/core/application/dto/**',
@@ -30,4 +31,9 @@ module.exports = {
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1'
   },
+  reporters: ['default',  ['jest-sonar', {
+    outputDirectory: 'coverage',
+    outputName: 'test-report.xml',
+    reportedFilePath: 'relative'
+  }]],
 }

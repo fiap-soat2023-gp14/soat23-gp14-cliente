@@ -1,5 +1,5 @@
 {
-  "name": "fiap-application",
+  "name": "fiap-cliente-application",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -49,6 +49,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "29.5.0",
+    "jest-sonar": "^0.2.16",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
     "supertest": "^6.1.3",
