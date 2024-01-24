@@ -1,4 +1,4 @@
-import { CPF } from './CPF';
+import {CPF} from "./Cpf";
 import { ValidationException } from 'src/infrastructure/exceptions/ValidationException';
 
 describe('CPF', () => {
