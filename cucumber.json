@@ -1,0 +1,12 @@
+{
+  "default": {
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "paths": [
+      "test/features",
+      "test/features/step_definitions"
+    ],
+    "publishQuiet": true
+  }
+}

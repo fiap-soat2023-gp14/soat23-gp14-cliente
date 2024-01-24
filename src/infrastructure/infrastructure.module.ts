@@ -7,6 +7,9 @@ import { UserEntity } from './adapters/gateway/entity/UserEntity';
 import { UserController } from './controller/UserController';
 import UserGateway from './adapters/gateway/UserGateway';
 import UserUseCase from 'src/core/application/usecase/UserUseCase';
+import UserMapper from './adapters/gateway/mappers/UserMapper';
+import { UserAdapter } from 'src/core/application/adapter/UserAdapter';
+import { CPF } from 'src/core/domain/valueObjects/Cpf';
 
 @Module({
   imports: [ApplicationModule, TypeOrmModule.forFeature([UserEntity])],
@@ -14,6 +17,8 @@ import UserUseCase from 'src/core/application/usecase/UserUseCase';
   providers: [
     { provide: 'IUserGateway', useClass: UserGateway },
     UserController,
-    UserUseCase],
+    UserUseCase,
+    UserMapper,
+    UserAdapter],
 })
 export default class InfrastructureModule { }
