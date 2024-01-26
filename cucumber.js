@@ -1,7 +1,9 @@
 let common = [
-  'test/features/*.feature',                // Specify our feature files
-  '--require-module ts-node/register',  // Load support files
-  '--require test/features/step_definitions/*.ts',   // Load step definitions
+  'test/features/user_api.feature',
+  '--require-module ts-node/register',
+  '--require test/features/step_definitions/*.ts',
+  '--format-options \'{"snippetInterface": "async-await"}\'',
+  '--format progress-bar'// Load custom formatter
 ].join(' ');
 module.exports = {
   default: common,

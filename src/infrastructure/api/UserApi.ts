@@ -10,9 +10,11 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { UserCreationDTO } from 'src/core/application/dto/UserCreationDTO';
-import UserFilter from 'src/core/domain/entities/UserFilter';
+
+
 import { UserController } from '../controller/UserController';
+import { UserCreationDTO } from '../../core/application/dto/UserCreationDTO';
+import UserFilter from 'src/core/domain/entities/UserFilter';
 
 @Controller('users')
 export default class UserApi {

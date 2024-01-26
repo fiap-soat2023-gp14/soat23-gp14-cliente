@@ -9,7 +9,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') || 8080;
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true, validationError: { target: false } }));
   await app.listen(port);
   console.log('Microservice listening on port:', port);
 }

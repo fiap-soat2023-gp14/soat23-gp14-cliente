@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, Length } from 'class-validator';
-import { ValidationException } from 'src/infrastructure/exceptions/ValidationException';
+import { ValidationException } from '../../../infrastructure/exceptions/ValidationException';
 import { ValueObject } from './ValueObject';
 
 class ValueProps {

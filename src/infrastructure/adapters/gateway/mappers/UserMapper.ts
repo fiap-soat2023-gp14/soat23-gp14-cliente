@@ -1,5 +1,5 @@
 import User from 'src/core/domain/entities/User';
-import { CPF } from 'src/core/domain/valueObjects/Cpf';
+import { CPF } from '../../../../core/domain/valueObjects/Cpf';
 import { v4 } from 'uuid';
 import { UserEntity } from '../entity/UserEntity';
 
