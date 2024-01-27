@@ -16,8 +16,8 @@ export default class UserUseCase {
     if (userExist.length > 0) {
       throw new ConflictException('User already exists');
     }
-
-    return await this.userGateway.create(user);
+    const userCreated = await this.userGateway.create(user);
+    return userCreated;
   }
 
   public async getAllUsers(params: UserFilterDTO) {

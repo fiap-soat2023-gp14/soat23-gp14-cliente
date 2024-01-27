@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import UserUseCase from './UserUseCase';
 import { IUserGateway } from '../repositories/IUserGateway';
-import { CPF } from '../../domain/valueObjects/Cpf';
+import { CPF } from 'src/core/domain/valueObjects/Cpf';
 import User from 'src/core/domain/entities/User';
 
 describe('UserUseCase', () => {
@@ -30,8 +30,8 @@ describe('UserUseCase', () => {
       email: 'fulanob@gmail.com',
       cpf: await CPF.create('59370565078'),
       phone: '11987896525',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2024-01-26T01:52:49.979Z'),
+      updatedAt: new Date('2024-01-26T01:52:49.979Z'),
     };
 
     userUseCase = module.get<UserUseCase>(UserUseCase);

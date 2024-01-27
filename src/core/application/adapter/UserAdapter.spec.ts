@@ -1,10 +1,9 @@
 import { UserAdapter } from "./UserAdapter";
-import { CPF } from "src/core/domain/valueObjects/Cpf";
+import { CPF } from '../../domain/valueObjects/Cpf';
 import { UserCreationDTO } from "../dto/UserCreationDTO";
 import { UserUpdateDTO } from "../dto/UserUpdateDTO";
-import { UserResponseDTO } from "../dto/UserResponseDTO";
 
-jest.mock("src/core/domain/valueObjects/Cpf", () => ({
+jest.mock("../../domain/valueObjects/Cpf", () => ({
   CPF: {
     create: jest.fn(),
   },

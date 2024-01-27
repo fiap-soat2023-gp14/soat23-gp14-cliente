@@ -1,6 +1,6 @@
 import { UserResponseDTO } from '../dto/UserResponseDTO';
 import User from 'src/core/domain/entities/User';
-import { CPF } from 'src/core/domain/valueObjects/Cpf';
+import { CPF } from '../../domain/valueObjects/Cpf';
 import { UserCreationDTO } from '../dto/UserCreationDTO';
 import { UserUpdateDTO } from '../dto/UserUpdateDTO';
 

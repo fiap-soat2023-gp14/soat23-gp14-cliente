@@ -1,4 +1,4 @@
 import { Module } from '@nestjs/common';
 
 @Module({})
-export default class DomainModule {}
+export default class DomainModule { }
