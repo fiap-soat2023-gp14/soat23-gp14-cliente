@@ -1,4 +1,4 @@
-import CPF from 'src/core/domain/valueObjects/Cpf';
+import { CPF } from '../valueObjects/Cpf';
 
 export default class User {
   id: string;
