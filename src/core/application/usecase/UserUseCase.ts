@@ -9,7 +9,6 @@ export default class UserUseCase {
   constructor(@Inject('IUserGateway') private userGateway: IUserGateway) { }
 
   public async createUser(user: User) {
-    console.log('UserUseCase.createUser.user', user);
     await user.cpf.validate();
     const params: UserFilterDTO = new UserFilterDTO();
     params.cpf = user.cpf.value;
@@ -18,7 +17,6 @@ export default class UserUseCase {
       throw new ConflictException('User already exists');
     }
     const userCreated = await this.userGateway.create(user);
-    console.log('UserUseCase.createUser.userCreated', userCreated);
     return userCreated;
   }
 
