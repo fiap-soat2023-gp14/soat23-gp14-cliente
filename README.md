@@ -2,7 +2,12 @@
 
 ## Description
 
-Microservice for managing customer information.
+Este Microserviço é reponsável por gerenciar os clientes que realizam seu cadastro para realizar um pedido na Plataforma de Pedidos.
+Ele possuis as funções de:
+  - Cadastrar cliente
+  - Listar clientes
+  - Buscar cliente por ID
+  - E atualizar dados permitidos do cliente
 
 ## Installation
 
@@ -12,15 +17,14 @@ $ yarn install
 
 ## Running the app
 
-```bash
-# development
-$ yarn run start
+Para rodar a aplicação localmente, é necessário possuir o Postgres rodando localmente. Para desenvolvimento local optamos por usar PgAdmin, que facilita a visualização da tabela e criação da base para usar localmente.
+Para subir o Postgres localmente seguimos os passos:
+ - Baixar a imagem do Postgres via Docker: docker pull postgres
+ - Criar e rodar o container da imagem do Postgres via linha de comando: docker run -d --name postgresCont -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+ - A criação do banco e teste de conexão foi feita via PgAdmin
 
-# watch mode
-$ yarn run start:dev
+Com o banco no ar e a base criada, podemos subir a aplicação com o comando yarn start
 
-# production mode
-$ yarn run start:prod
 ```
 
 ## Test
@@ -29,22 +33,14 @@ $ yarn run start:prod
 # unit tests
 $ yarn run test
 
-# e2e tests
 $ yarn run test:e2e
 
 # test coverage
 $ yarn run test:cov
+
+# test BDD
+$ yarn run test:bdd
 ```
-## Docker
-
-Build the image and run the container:
-
-```bash
-docker build -t app-fiap .
-
-docker run --name app-fiap  -p 8080:8080 -d app-fiap
-```
-```bash
 
 ## Support
 
