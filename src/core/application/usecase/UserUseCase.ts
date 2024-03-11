@@ -3,9 +3,9 @@ import User from '../../domain/entities/User';
 import { ConflictException, Inject } from '@nestjs/common';
 import { HttpNotFoundException } from '../../../infrastructure/exceptions/HttpNotFoundException';
 import { IUserGateway } from '../repositories/IUserGateway';
+import {CPF} from "../../domain/valueObjects/Cpf";
 
 export default class UserUseCase {
-
   constructor(@Inject('IUserGateway') private userGateway: IUserGateway) { }
 
   public async createUser(user: User) {
@@ -35,6 +35,19 @@ export default class UserUseCase {
     id: string,
     user: User
   ) {
+    return this.userGateway.update(id, user);
+  }
+
+  private readonly REMOVED_DATA = "DADO REMOVIDO";
+
+  public async anonymizeUserData(
+      id: string,
+      user: User
+  ) {
+    user.cpf = await CPF.create("00000000000");
+    user.email = this.REMOVED_DATA;
+    user.name = this.REMOVED_DATA;
+    user.phone = this.REMOVED_DATA;
     return this.userGateway.update(id, user);
   }
 }

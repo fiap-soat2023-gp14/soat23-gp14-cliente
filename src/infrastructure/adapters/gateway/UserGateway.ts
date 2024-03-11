@@ -44,6 +44,7 @@ export default class UserGateway implements IUserGateway {
 
   public async update(id: string, user: User): Promise<User> {
     try {
+      user.id = id;
       const userEntity = this.userMapper.toEntity(user);
       await this.userRepository.update(id, userEntity);
 
