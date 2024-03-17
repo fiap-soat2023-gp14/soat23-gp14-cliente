@@ -43,4 +43,11 @@ export class UserController {
     const adapted = this.userAdapter.toResponse(user);
     return adapted;
   }
+
+  public async removeUser(
+      id: string) {
+    const user = await this.userCase.getUserById(id);
+    await this.userCase.anonymizeUserData(id, user);
+  }
+
 }

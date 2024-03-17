@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Inject,
@@ -48,5 +49,14 @@ export default class UserApi {
   ) {
     await this.useControler.updateUser(id, userDto);
     return response.status(HttpStatus.OK).json();
+  }
+
+  @Delete('/:id')
+  async removeUser(
+      @Res() response,
+      @Param('id') id: string
+  ) {
+    await this.useControler.removeUser(id);
+    return response.status(HttpStatus.NO_CONTENT).json();
   }
 }

@@ -102,4 +102,23 @@ describe('UserUseCase', () => {
       expect(userGatewayMock.update).toHaveBeenCalledWith(id, user);
     });
   });
+
+  describe('anonymizeUserData', () => {
+    it('should call userGateway.update with id and user', async () => {
+      const id = 'dbad9ae5-92d0-493f-bbbb-10895f3c15e9';
+      const deletedUser = {
+        id: 'dbad9ae5-92d0-493f-bbbb-10895f3c15e9',
+        name: 'DADO REMOVIDO',
+        email: 'DADO REMOVIDO',
+        cpf: await CPF.create('00000000000'),
+        phone: 'DADO REMOVIDO',
+        createdAt: new Date('2024-01-26T01:52:49.979Z'),
+        updatedAt: new Date('2024-01-26T01:52:49.979Z'),
+      };
+
+      await userUseCase.anonymizeUserData(id, user);
+
+      expect(userGatewayMock.update).toHaveBeenCalledWith(id, deletedUser);
+    });
+  });
 });
