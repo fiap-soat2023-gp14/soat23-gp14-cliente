@@ -57,6 +57,6 @@ export default class UserApi {
       @Param('id') id: string
   ) {
     await this.useControler.removeUser(id);
-    return response.status(HttpStatus.NO_CONTENT);
+    return response.status(HttpStatus.NO_CONTENT).json();
   }
 }
