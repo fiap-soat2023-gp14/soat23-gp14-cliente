@@ -103,4 +103,16 @@ describe('UserApi', () => {
       expect(mockResponse.json).toBeCalledWith();
     });
   });
+
+  describe('removeUser', () => {
+    it('should call userController.removeUser with id', async () => {
+      const id = '3255ca79-f972-452b-8a90-9690f510b3fb';
+      userControllerMock.removeUser = jest.fn().mockResolvedValue({});
+
+      await userApi.removeUser(mockResponse, id);
+
+      expect(userControllerMock.removeUser).toBeCalledWith(id);
+      expect(mockResponse.status).toBeCalledWith(HttpStatus.NO_CONTENT);
+    });
+  });
 });

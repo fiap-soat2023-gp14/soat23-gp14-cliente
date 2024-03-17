@@ -149,4 +149,35 @@ describe('UserController', () => {
       expect(userUseCaseMock.updateUser).toHaveBeenCalledWith(userId, user);
     });
   });
+
+  describe('removeUser', () => {
+    it('should call userUseCase.anonymizeUserData with id and user', async () => {
+      const userId = "3255ca79-f972-452b-8a90-9690f510b3fb";
+      const user = {
+        "id": "3255ca79-f972-452b-8a90-9690f510b3fb",
+        "name": "Fulano Ciclano",
+        "email": "fulanoci@gmail.com",
+        "cpf": "45828179802",
+        "phone": "11987896525",
+        "createdAt": new Date(),
+        "updatedAt": new Date()
+      };
+
+      const deletedUser = {
+        id: "3255ca79-f972-452b-8a90-9690f510b3fb",
+        name: "DADO REMOVIDO",
+        email: "DADO REMOVIDO",
+        cpf: "00000000000",
+        phone: "DADO REMOVIDO",
+      };
+
+      userUseCaseMock.getUserById = jest.fn().mockResolvedValue(user);
+      userUseCaseMock.anonymizeUserData = jest.fn().mockResolvedValue(deletedUser);
+
+      await userController.removeUser(userId);
+
+      expect(userUseCaseMock.getUserById).toHaveBeenCalledWith(userId);
+      expect(userUseCaseMock.anonymizeUserData).toHaveBeenCalledWith(userId, user);
+    });
+  });
 });
